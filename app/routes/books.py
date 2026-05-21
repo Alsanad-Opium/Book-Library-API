@@ -21,3 +21,35 @@ def get_books():
     if books is None:
         return jsonify({"message":"No books found"}),404
     return jsonify([book.to_dict() for book in books]), 200
+
+
+@books_bp.route('/<int:id>', methods = ['GET'])
+
+def get_book(id):
+    
+    book  = Books.query.get(id)
+    
+    if book is None:
+        return jsonify({"message":"Book not found"}),404
+    
+    return jsonify(book.to_dict()),200
+
+
+books_bp.route('/',methods = ['POST'])
+
+def create_book():
+    data = request.get_json()
+    
+    if not data['title'] or not data['author'] or not data['genre']:
+        return jsonify({"message": "title, author and genre are required fields"}),400
+    
+    book = Books(
+        title = data['title'],
+        author = data['author'],
+        genre = data["genre"]
+    )
+    
+    db.session.add(book)
+    db.session.commit()
+    
+    return  jsonify({"message": "Book added succesfully" , "book": book.to_dict()}),201
