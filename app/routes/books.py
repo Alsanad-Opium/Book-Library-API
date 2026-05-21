@@ -53,3 +53,18 @@ def create_book():
     db.session.commit()
     
     return  jsonify({"message": "Book added succesfully" , "book": book.to_dict()}),201
+
+
+books_bp.route('./<int:id>',methods = ['PUT'])
+def update_book(id):
+    book = db.session.get(Books, id)
+    
+    if book is None:
+        return jsonify({"message": "Enter a valid book number"}),401
+    
+    data = request.get_json()
+    
+    if data['title'] and data['author'] and data['genre']:
+        book.tit
+    
+    
