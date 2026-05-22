@@ -38,7 +38,7 @@ def get_book(id):
     return jsonify(book.to_dict()),200  #return the dict format for the book 
 
 
-books_bp.route('/',methods = ['POST'])
+@books_bp.route('/',methods = ['POST'])
 
 # creates the book with the data give n in the request body from the frontend or postman
 def create_book():
@@ -59,7 +59,7 @@ def create_book():
     return  jsonify({"message": "Book added succesfully" , "book": book.to_dict()}),201
 
 
-books_bp.route('./<int:id>',methods = ['PUT']) 
+@books_bp.route('/<int:id>',methods = ['PUT']) 
 
 # updates the book with the given id and put the new data in the book object if available or the old value stays 
 def update_book(id):
@@ -80,7 +80,7 @@ def update_book(id):
     return jsonify({'message': "book has been Updated succcessfully ", 'book':book.to_dict()}),200
 
 
-books_bp.route('/<int:id>',methods = ['DELETE'])
+@books_bp.route('/<int:id>',methods = ['DELETE'])
 # Delete the book with the given id from the db 
 def delete_book(id):
     
