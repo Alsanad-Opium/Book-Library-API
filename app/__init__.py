@@ -2,7 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
-from flask_bcrypt import bcrypt
+from flask_bcrypt import Bcrypt
 from dotenv import load_dotenv
 
 
@@ -18,7 +18,7 @@ migrate = Migrate()
 jwt = JWTManager() 
 #object that is used to handle the jwt authentication in the app it is used to create and verify the jwt tokens and also to handle the jwt related errors
 
-bcrypt = bcrypt() 
+bcrypt = Bcrypt() 
 # object that is used to handle the password hashing and checking in the app it is used to hash the password before storing it in the database and also to check the password when the user login
 
 def create_app():
