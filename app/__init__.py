@@ -4,6 +4,7 @@ from flask_migrate import Migrate
 from dotenv import load_dotenv
 
 
+
 load_dotenv() ## load the var from .env
 db =SQLAlchemy() # create db instance at module level so it can be imported in other modules
 migrate = Migrate() # create migrate module at modeul level so can be used by other modules  
@@ -15,10 +16,11 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object('config.Config') #load the config from config.py and using the config class to laod the config for the app 
     
-    db.__init__app(app) # initialize the db with the app can be used by other modules to interact with the database 
-    migrate.init_app(app) # same as above just for migration 
+    db.init_app(app) # initialize the db with the app can be used by other modules to interact with the database 
+    migrate.init_app(app,db) # same as above just for migration 
     
-    from .routes import book_bp # import the blueprint from the routes module to register it with the app
-    app.register_blueprint(book_bp) # register the blueprint with the app to make the routes defined in the blueprint available to the app
+    from app.routes.books import books_bp
+    from app import models# import the blueprint from the routes module to register it with the app
+    app.register_blueprint(books_bp) # register the blueprint with the app to make the routes defined in the blueprint available to the app
     
     return app
