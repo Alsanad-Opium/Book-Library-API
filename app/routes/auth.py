@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_jwt_extended import create_access_token
 from app.models import User
 from app import db, bcrypt
+from datetime import timedelta
 
 
 
@@ -49,7 +50,7 @@ def login():
 
         return jsonify({'message': 'Invalid email or password'}), 401
 
-    access_token  = create_access_token(identity = user.id)
+    access_token  = create_access_token(identity = user.id, expires_delta = timedelta(hours = 1)) 
     
     
     return jsonify({

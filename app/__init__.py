@@ -31,7 +31,9 @@ def create_app():
     jwt.init_app(app)
     bcrypt.init_app(app)
     from app.routes.books import books_bp
+    from app.routes.auth import auth_bp
     from app import models# import the blueprint from the routes module to register it with the app
     app.register_blueprint(books_bp) # register the blueprint with the app to make the routes defined in the blueprint available to the app
+    app.register_blueprint(auth_bp) # register the blueprint with the app to make the routes defined in the blueprint available to the app
     
     return app
