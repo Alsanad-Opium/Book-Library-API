@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from app.models import Books
 from app import db
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 
 books_bp = Blueprint('books',__name__,url_prefix = "/api/books")
@@ -39,10 +40,12 @@ def get_book(id):
 
 
 @books_bp.route('/',methods = ['POST'])
+@jwt_required()
 
 # creates the book with the data give n in the request body from the frontend or postman
 def create_book():
     data = request.get_json()
+    current_user_id = get_jwt_identity()
     
     if not data['title'] or not data['author'] or not data['genre']: # chek whether the required fied are provided or not as they are required in the db 
         return jsonify({"message": "title, author and genre are required fields"}),400
@@ -60,10 +63,11 @@ def create_book():
 
 
 @books_bp.route('/<int:id>',methods = ['PUT']) 
-
+@jwt_required()
 # updates the book with the given id and put the new data in the book object if available or the old value stays 
 def update_book(id):
     book = db.session.get(Books, id)
+    current_user_id = get_jwt_identity()
     
     if book is None:
         return jsonify({"message": "Enter a valid book number"}),401
@@ -81,11 +85,12 @@ def update_book(id):
 
 
 @books_bp.route('/<int:id>',methods = ['DELETE'])
+@jwt_required()
 # Delete the book with the given id from the db 
 def delete_book(id):
     
     book = db.session.get(Books, id)
-    
+    current_user_id = get_jwt_identity()
     if book is None:
         return jsonify({"message": "Book not found"}),404
     

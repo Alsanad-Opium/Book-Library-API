@@ -50,7 +50,7 @@ def login():
 
         return jsonify({'message': 'Invalid email or password'}), 401
 
-    access_token  = create_access_token(identity = user.id, expires_delta = timedelta(hours = 1)) 
+    access_token  = create_access_token(identity = str(user.id), expires_delta = timedelta(hours = 1)) 
     
     
     return jsonify({
