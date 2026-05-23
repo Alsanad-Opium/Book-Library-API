@@ -19,7 +19,7 @@ def register():
     existing_username = User.query.filter_by(username = data['username']).first()
     
     if existing_email or existing_username:
-        return jsonify({"message": "Email or username already exists"}),400
+        return jsonify({"message": "Email or username already exists"}),409
     
     hashed_password =  bcrypt.generate_password_hash(data['password']).decode('utf-8')
     user = User(
@@ -33,3 +33,27 @@ def register():
     
     return jsonify({"message": "USer added successfully ", "user": user.to_dict()}),201
     
+
+@auth_bp.route('/login', methods =['POST'])
+
+def login():
+    
+    data = request.get_json()
+    
+    if not data.get('email') or not data.get('password'):
+        return jsonify({'message': 'Email and password are required '}),400
+    
+    user = User.query.filter_by(email = data['email']).first()
+    
+    if not user or not  bcrypt.check_password_hash(user.password, data['password']):
+
+        return jsonify({'message': 'Invalid email or password'}), 401
+
+    access_token  = create_access_token(identity = user.id)
+    
+    
+    return jsonify({
+                    'access_token': access_token,
+                    'message': "Login successful",
+                    'user': user.to_dict() }), 200
+        
