@@ -15,14 +15,14 @@ export default function Login(){
         
        try{
 
-         const response = await api.post('/auth/login', {username,password});
+         const response = await api.post('/auth/login', {email,password});
 
 
         localStorage.setItem('token',response.data.access_token); // store the JWT token in localStorage. This allows us to persist the user's login state across page refreshes and browser sessions.
         
         localStorage.setItem('user',JSON.stringify(response.data.user)); //saves the user object too. Useful for showing the username in the navbar. JSON.stringify converts the object to a string because localStorage only stores strings.
 
-        window.location.href('/books'); // redirect to the books page after successful login. This is a simple way to navigate, but in a real app, you'd likely use React Router for better navigation handling.
+        window.location.replace('/books'); // redirect to the books page after successful login. This is a simple way to navigate, but in a real app, you'd likely use React Router for better navigation handling.
        } 
        catch(error){
         setError(error.response?.data?.meassage || "Login failed "); // set an error message if the login fails. This will display feedback to the user if their credentials are incorrect or if there's a server issue.

@@ -20,7 +20,7 @@ export default function Register(){
             setError('')
 
            setTimeout(() => {
-                 window.location.href('/login');
+                 window.location.replace('/login');
            }, 3000); // will direct to login page after 3 seconds
             // set a success message if registration is successful. This will provide feedback to the user that their account was created successfully.
         } catch (error) {

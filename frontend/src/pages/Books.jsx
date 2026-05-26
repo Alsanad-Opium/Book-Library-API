@@ -64,6 +64,11 @@ export default function Books(){
         }
     }
 
+     function handleLogout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    window.location.replace("/login");
+  }
     return(
         <div>
       <div>
