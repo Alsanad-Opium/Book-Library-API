@@ -1,15 +1,16 @@
-import {userState}  from 'react';
+import { useState } from "react";
 import api from '../api/axios';
 
 
 export default function Login(){
 
-    const [username, setUsername] = useState('');
-    const [password,setPassword] = useState('');
-    const [error,setError] = useState('');
+    const [username, setUsername] = useState("");
+    const [password,setPassword] = useState("");
+    const [email,setEmail] = useState("");
+    const [error,setError] = useState("");
 
 
-    async function  handleSubmit(e){
+    async function  handleLogin(e){
         e.preventDefault();// prevent the default form submission behavior, which would cause a page reload.
         
        try{
