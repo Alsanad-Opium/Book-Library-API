@@ -4,6 +4,9 @@ from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
 from flask_bcrypt import Bcrypt
 from dotenv import load_dotenv
+from flask_cors import CORS
+
+
 
 
 
@@ -24,7 +27,8 @@ bcrypt = Bcrypt()
 def create_app():
     
     app = Flask(__name__)
-    app.config.from_object('config.Config') #load the config from config.py and using the config class to laod the config for the app 
+    app.config.from_object('config.Config')#load the config from config.py and using the config class to laod the config for the app 
+    CORS(app)
     
     db.init_app(app) # initialize the db with the app can be used by other modules to interact with the database 
     migrate.init_app(app,db) # same as above just for migration 
