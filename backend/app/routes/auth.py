@@ -40,7 +40,7 @@ def register():
 def login():
     
     data = request.get_json()
-    
+    # print("Received Data", data)
     if not data.get('email') or not data.get('password'):
         return jsonify({'message': 'Email and password are required '}),400
     
