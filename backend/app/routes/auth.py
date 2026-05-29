@@ -8,7 +8,7 @@ from datetime import timedelta
 
 auth_bp = Blueprint('auth',__name__, url_prefix = "/api/auth")
 
-@auth_bp.route('/register',methods = ["POST"])
+@auth_bp.route('/register',methods = ["POST"], strict_slashes=False)
 
 def register():
     data = request.get_json()
@@ -35,7 +35,7 @@ def register():
     return jsonify({"message": "USer added successfully ", "user": user.to_dict()}),201
     
 
-@auth_bp.route('/login', methods =['POST'])
+@auth_bp.route('/login', methods =['POST'], strict_slashes=False)
 
 def login():
     

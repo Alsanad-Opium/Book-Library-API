@@ -3,8 +3,7 @@ from app.models import Books
 from app import db
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
-
-books_bp = Blueprint('books',__name__,url_prefix = "/api/books")
+books_bp = Blueprint('books', __name__, url_prefix="/api/books")
 
 
 ## methods for the route are 
@@ -14,7 +13,7 @@ books_bp = Blueprint('books',__name__,url_prefix = "/api/books")
 #put /update a book by id
 #delete a book by id 
 
-@books_bp.route('/',methods = ['GET'])
+@books_bp.route('/',methods = ['GET'], strict_slashes=False)
 
 # Fetches ll the books from the db
 def get_books():
@@ -25,7 +24,7 @@ def get_books():
     return jsonify([book.to_dict() for book in books]), 200# retunrs a list of dict where each dict represents a book
 
 
-@books_bp.route('/<int:id>', methods = ['GET'])
+@books_bp.route('/<int:id>', methods = ['GET'], strict_slashes=False)
 
 
 # fetches  the book for the id given in the url
@@ -39,7 +38,7 @@ def get_book(id):
     return jsonify(book.to_dict()),200  #return the dict format for the book 
 
 
-@books_bp.route('/',methods = ['POST'])
+@books_bp.route('/',methods = ['POST'], strict_slashes=False)
 @jwt_required()
 
 # creates the book with the data give n in the request body from the frontend or postman
@@ -62,7 +61,7 @@ def create_book():
     return  jsonify({"message": "Book added succesfully" , "book": book.to_dict()}),201
 
 
-@books_bp.route('/<int:id>',methods = ['PUT']) 
+@books_bp.route('/<int:id>',methods = ['PUT'], strict_slashes=False) 
 @jwt_required()
 # updates the book with the given id and put the new data in the book object if available or the old value stays 
 def update_book(id):
@@ -84,7 +83,7 @@ def update_book(id):
     return jsonify({'message': "book has been Updated succcessfully ", 'book':book.to_dict()}),200
 
 
-@books_bp.route('/<int:id>',methods = ['DELETE'])
+@books_bp.route('/<int:id>',methods = ['DELETE'], strict_slashes=False)
 @jwt_required()
 # Delete the book with the given id from the db 
 def delete_book(id):
