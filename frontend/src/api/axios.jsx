@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL :"http://127.0.0.1:5000/api/" // this is the base URL for all our API requests. It points to our Flask backend.
-
+    //baseURL :"http://127.0.0.1:5000/api/" // this is the base URL for all our API requests. It points to our Flask backend.
+    baseURL :"https://book-library-api.up.railway.app/api/" // this is the base URL for all our API requests. It points to our Flask backend deployed on render.
 });
 
 
