@@ -147,9 +147,7 @@ Frontend runs at `http://localhost:5173`
 
 ---
 
-## 📸 Screenshots
 
-> Login page, Books dashboard with stats, Edit modal
 
 ---
 
