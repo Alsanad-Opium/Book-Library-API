@@ -28,7 +28,8 @@ def create_app():
     
     app = Flask(__name__)
     app.config.from_object('config.Config')#load the config from config.py and using the config class to laod the config for the app 
-    CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}})
+    
+    CORS(app, resources={r"/api/*": {"origins": ["http://localhost:5173", "https://book-library-api-five.vercel.app"]}})
     
     db.init_app(app) # initialize the db with the app can be used by other modules to interact with the database 
     migrate.init_app(app,db) # same as above just for migration 
